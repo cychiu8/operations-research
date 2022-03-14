@@ -1,5 +1,6 @@
 # Vendor travel problem
-- Problem description：https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/edit
+## Problem description
+https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/edit
 - Revenue
   - $20 / 100m
 - Tiredness
@@ -25,7 +26,9 @@
     | 3   | 3   km          | $60   | 100          | $240        |
     | 4   | 4   km          | $60   | 120          | $300        |
 
-# Abstract
+## Mathemetical Model
+
+### Abstract
 > 先以一天為例，降低問題之維度
 
 - Set
@@ -105,7 +108,8 @@ c_0x &\text{, }0 \leq x \leq 10 \\
     
 
 
-# Original Problem
+### Original Problem
+
 > 增加天數的維度
 - Assumption
   - 一天：假設為攤販從家裡出發回到家裡為一天，因此假設有 7 天 (出發 7 次)
@@ -151,11 +155,31 @@ c_0x &\text{, }0 \leq x \leq 10 \\
 
   - range of decision variables
   
-    $0 \leq x_i \leq 40$, $\forall i \in D$
+    $0 \leq x_i \leq \displaystyle\sum_{m \in M}d_m$, $\forall i \in D$
 
-    $0 \leq y_{mi} \leq 10 , \forall m \in M$, $\forall i \in D$
+    $0 \leq y_{mi} \leq d_m , \forall m \in M$, $\forall i \in D$
 
     $z_{mi} \in {0,1}, \forall m \in M$, $\forall i \in D$
 
     $\omega_{m} \in {0,1}, \forall m \in M$, $\forall i \in D$
 
+## Solution
+
+### solved by or-tool
+- Objective function - the tiredness: 4140 unit
+- Decision Variables for business
+  - $x_i$ : 第 i 天攤販走的長度
+
+    |           | D1  | D2  | D3  | D4  | D5  | D6  | D7  |
+    | --------- | --- | --- | --- | --- | --- | --- | --- |
+    | kilometer | 3   | 3   | 3.1 | 3   | 3   | 4   | 3   |
+
+  - $\omega_{mi}$：第 i 天於第 m 個點是否要停下來駐點叫賣
+
+    |        | D1  | D2  | D3  | D4  | D5  | D6  | D7  |
+    | ------ | --- | --- | --- | --- | --- | --- | --- |
+    | 0.5 km | 1   | 1   | 1   | 1   | 1   | 1   | 1   |
+    | 1 km   | 0   | 1   | 1   | 1   | 1   | 0   | 0   |
+    | 2 km   | 1   | 1   | 1   | 1   | 1   | 1   | 1   |
+    | 3 km   | 1   | 1   | 1   | 1   | 1   | 1   | 1   |
+    | 4 km   | 0   | 0   | 0   | 0   | 0   | 1   | 0   |
