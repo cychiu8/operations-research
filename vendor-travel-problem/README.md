@@ -3,13 +3,13 @@
 - Revenue
   - $20 / 100m
 - Tiredness
-    | M | kilometer | tiredness for each 100 m | variable |
-    | - | --------- | ------------------------ | -------- |
-    | 0 | 0   km ~0.5km |  5 | |
-    | 1 | 0.6 km ~ 1 km |  5 | |
-    | 2 | 1.1 km ~ 2 km | 10 | |
-    | 3 | 2.1 km ~ 3 km | 15 | |
-    | 4 | 3.1 km ~ 4 km | 20 | |
+    | M   | kilometer     | tiredness for each 100 m | variable |
+    | --- | ------------- | ------------------------ | -------- |
+    | 0   | 0   km ~0.5km | 5                        |          |
+    | 1   | 0.6 km ~ 1 km | 5                        |          |
+    | 2   | 1.1 km ~ 2 km | 10                       |          |
+    | 3   | 2.1 km ~ 3 km | 15                       |          |
+    | 4   | 3.1 km ~ 4 km | 20                       |          |
 - Extra Revenue
   > 第 500 公尺處的額外收入為 20，亦可多花 20 單位體力駐點叫賣，使額外收入**「提高到」**60。
   - 假設
@@ -17,13 +17,13 @@
     - 若花 20 單位體力駐點叫賣，則會額外多 $40 ，提高到 $60
     - (不討論花 10 單位體力駐點叫賣可能額外多 $20 的情境，只有選擇花 20 體力叫賣，或是不花體力叫賣)
 
-    | M | position at Nth | bonus | extra effort | extra bonus |
-    | - | --------------- | ----- | ------------ | ----------- |
-    | 0 | 0.5 km          | $20   | 20           | $40         |
-    | 1 | 1   km          | $40   | 40           | $80         |
-    | 2 | 2   km          | $60   | 100          | $240        |
-    | 3 | 3   km          | $60   | 100          | $240        |
-    | 4 | 4   km          | $60   | 120          | $300        |
+    | M   | position at Nth | bonus | extra effort | extra bonus |
+    | --- | --------------- | ----- | ------------ | ----------- |
+    | 0   | 0.5 km          | $20   | 20           | $40         |
+    | 1   | 1   km          | $40   | 40           | $80         |
+    | 2   | 2   km          | $60   | 100          | $240        |
+    | 3   | 3   km          | $60   | 100          | $240        |
+    | 4   | 4   km          | $60   | 120          | $300        |
 
 # Abstract
 > 先以一天為例，降低問題之維度
@@ -39,6 +39,7 @@
   - $c_m$：第 m 段，每 100 公尺所消耗的體力, $\forall m \in M$
   - $r$：每 100 公尺所取得的收入
   - $R$：須滿足之收入
+  - $d_m$：第 m 段內，有多少 100 公尺, $\forall m \in M$
   - $b_m$：走完第 m 段，所得的額外收入, $\forall m \in M$
   - $t_m$：若於第 m 個點駐點叫賣，所需消耗的體力, $\forall m \in M$
   - $e_m$：若於第 m 個點駐點叫賣，所得的額外收入, $\forall m \in M$
@@ -81,7 +82,7 @@ c_0x &\text{, }0 \leq x \leq 10 \\
 
     $\displaystyle\sum_{m \in M} y_m = x$
 
-    $10z_m \leq y_m ,\forall m \in M$
+    $d_mz_m \leq y_m ,\forall m \in M$
 
     $y_m \leq Mz_{m-1},\forall m \in {1,...,|M|}$
 
@@ -89,7 +90,7 @@ c_0x &\text{, }0 \leq x \leq 10 \\
 
   - relation between $z$ and $\omega$
 
-    $z_m \leq \omega_m,\forall m \in M$
+    $z_m \geq \omega_m,\forall m \in M$
 
   - range of decision variables
   
@@ -120,6 +121,7 @@ c_0x &\text{, }0 \leq x \leq 10 \\
   - $c_m$：第 m 段，每 100 公尺所消耗的體力, $\forall m \in M$
   - $r$：每 100 公尺所取得的收入
   - $R$：須滿足之收入
+  - $d_m$：第 m 段內，有多少 100 公尺, $\forall m \in M$
   - $b_m$：走完第 m 段，所得的額外收入, $\forall m \in M$
   - $t_m$：若於第 m 個點駐點叫賣，所需消耗的體力, $\forall m \in M$
   - $e_m$：若於第 m 個點駐點叫賣，所得的額外收入, $\forall m \in M$
@@ -137,7 +139,7 @@ c_0x &\text{, }0 \leq x \leq 10 \\
 
     $\displaystyle\sum_{m \in M} y_{mi} = x_i$, $\forall i \in D$
 
-    $10z_{mi} \leq y_{mi} ,\forall m \in M$, $\forall i \in D$
+    $d_mz_{mi} \leq y_{mi} ,\forall m \in M$, $\forall i \in D$
 
     $y_{mi} \leq Mz_{(m-1)i},\forall m \in {1,...,|M|}$, $\forall i \in D$
 
@@ -145,7 +147,7 @@ c_0x &\text{, }0 \leq x \leq 10 \\
 
   - relation between $z$ and $\omega$
 
-    $z_{mi} \leq \omega_{mi},\forall m \in M$, $\forall i \in D$
+    $z_{mi} \geq \omega_{mi},\forall m \in M$, $\forall i \in D$
 
   - range of decision variables
   
