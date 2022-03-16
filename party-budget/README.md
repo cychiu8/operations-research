@@ -39,6 +39,12 @@ https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/
 - Demand
   - 加總各個主餐、附餐、飲料的數量
 
+    | item       | total needs |
+    | ---------- | ----------- |
+    | Main       | 8           |
+    | Hamburgers | 6           |
+    | Side dish  | 13          |
+    | Drink      | 6           |
 ## Mathemetical Model
 
 - Set
@@ -47,7 +53,6 @@ https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/
   - $A$：飲料的集合
   - $B$：漢堡的集合
   - $S$：套餐的集合
-  - $I$：參加派對人的集合
 - Decision Variables
   - $x_m$：單點主餐 m 的數量, $\forall m \in M$
   - $y_n$：單點副餐 n 的數量, $\forall n \in N$
@@ -58,15 +63,20 @@ https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/
   - $p_{n}$：單點副餐 n 的價格, $\forall n \in N$
   - $p_{a}$：單點飲料 a 的價格, $\forall a \in A$
   - $p_{s}$：點套餐 s 的價格, $\forall s \in S$
+  - $t_{M}$：主餐所需總數量
+  - $t_{B}$：漢堡所需總數量
+  - $t_{N}$：附餐所需總數量
+  - $t_{A}$：飲料所需總數量
   - $e_{M}$：最多可多買的主餐數量
   - $e_{N}$：最多可多買的副餐數量
   - $e_{A}$：最多可多點的飲料數量
   - $f^m_{s}$：套餐 s 包含主餐 m 的數量, $\forall m \in M, \forall s \in S$
   - $g^n_{s}$：套餐 s 包含副餐 n 的數量, $\forall n \in N, \forall s \in S$
   - $h^a_{s}$：套餐 s 包含飲料 a 的數量, $\forall a \in A, \forall s \in S$
-  - $l^m_{i}$：人 i 需要主餐 m 的數量, $\forall m \in M \setminus \{甲,戊,庚\}, \forall i \in I$
-  - $q^n_{i}$：人 i 需要副餐 n 的數量, $\forall n \in N \setminus \{辛\}, \forall i \in I$
-  - $r^a_{i}$：人 i 需要飲料 a 的數量, $\forall a \in A, \forall i \in I$
+  - $l^m$：需要主餐 m 的數量, $\forall m \in M \setminus \{甲,戊,庚\}$
+  - $q^n$：需要副餐 n 的數量, $\forall n \in N \setminus \{辛\}$
+  - $r^a$：需要飲料 a 的數量, $\forall a \in A$
+
 
 - Cost
 
@@ -76,15 +86,15 @@ https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/
 
     - Main
 
-        $\displaystyle\sum_{\forall i \in I}l^m_{i} + e_{M}\ge x_{m} + \displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge \displaystyle\sum_{\forall i \in I}l^m_{i}$, $\forall m \in M$
+        $\displaystyle\sum_{\forall i \in I}l^m_{i} + e_{M}\ge x_{m} + \displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge l^m$, $\forall m \in M$
     
     - Side dish
 
-        $\displaystyle \sum_{\forall i \in I}q^n_{i} + e_{N} \ge y_{n} + \displaystyle\sum_{\forall s \in S}g^n_{s}\omega_{s} \ge \displaystyle\sum_{\forall i \in I}q^n_{i}$, $\forall n \in N$
+        $\displaystyle \sum_{\forall i \in I}q^n_{i} + e_{N} \ge y_{n} + \displaystyle\sum_{\forall s \in S}g^n_{s}\omega_{s} \ge q^n$, $\forall n \in N$
 
     - Drink
 
-        $\displaystyle \sum_{\forall i \in I}r^a_{i} + e_{A} \ge z_{a} + \displaystyle\sum_{\forall s \in S}h^a_{s}\omega_{s} \ge \displaystyle\sum_{\forall i \in I}r^a_{i}$, $\forall a \in A$
+        $\displaystyle \sum_{\forall i \in I}r^a_{i} + e_{A} \ge z_{a} + \displaystyle\sum_{\forall s \in S}h^a_{s}\omega_{s} \ge r^a$, $\forall a \in A$
 
 - Objective function: Minimum Cost
 
@@ -94,33 +104,33 @@ https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/
 
     - number of main dish for each kind
 
-        $x_{m} + \displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge \displaystyle\sum_{\forall i \in I}l^m_{i}$, $\forall m \in M$
+        $x_{m} + \displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge l^m$, $\forall m \in M$
 
     - number of side dish for each kind
 
-        $y_{n} + \displaystyle\sum_{\forall s \in S}g^n_{s}\omega_{s} \ge \displaystyle\sum_{\forall i \in I}q^n_{i}$, $\forall n \in N$
+        $y_{n} + \displaystyle\sum_{\forall s \in S}g^n_{s}\omega_{s} \ge q^n$, $\forall n \in N$
 
     - number of drink for each kind
 
-        $z_{a} + \displaystyle\sum_{\forall s \in S}h^a_{s}\omega_{s} \ge \displaystyle\sum_{\forall i \in I}r^a_{i}$, $\forall a \in A$
+        $z_{a} + \displaystyle\sum_{\forall s \in S}h^a_{s}\omega_{s} \ge r^a$, $\forall a \in A$
 
     - number of main dish for all
 
-        $8 + e_{M} \ge \displaystyle \sum_{\forall m \in M}x_{m} + \displaystyle\sum_{\forall m \in M}\displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge 8$
+        $t_{M} + e_{M} \ge \displaystyle \sum_{\forall m \in M}x_{m} + \displaystyle\sum_{\forall m \in M}\displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge t_{M}$
 
     - number of hamburger
 
-        $\displaystyle\sum_{\forall m \in B}x_{m} + \displaystyle\sum_{\forall m \in B}\displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge 6$
+        $\displaystyle\sum_{\forall m \in B}x_{m} + \displaystyle\sum_{\forall m \in B}\displaystyle\sum_{\forall s \in S}f^m_{s}\omega_{s} \ge t_{B}$
 
     - number of Side dish for all
 
 
-        $13 + e_{N} \ge \displaystyle\sum_{\forall n \in N}y_{n} + \displaystyle\sum_{\forall n \in N}\displaystyle\sum_{\forall s \in S}g^n_{s}\omega_s \ge 13$
+        $t_{N} + e_{N} \ge \displaystyle\sum_{\forall n \in N}y_{n} + \displaystyle\sum_{\forall n \in N}\displaystyle\sum_{\forall s \in S}g^n_{s}\omega_s \ge t_{N}$
 
     - number of drink for all
 
 
-        $6 + e_{A} \ge \displaystyle\sum_{\forall a \in A}z_{a} + \displaystyle\sum_{\forall a \in A}\displaystyle\sum_{\forall s \in S}h^a_{s}\omega_{s}\ge 6$
+        $t_A + e_{A} \ge \displaystyle\sum_{\forall a \in A}z_{a} + \displaystyle\sum_{\forall a \in A}\displaystyle\sum_{\forall s \in S}h^a_{s}\omega_{s}\ge t_{A}$
 
     - range of decision variables
 
@@ -131,3 +141,39 @@ https://docs.google.com/document/d/1mhKLc4LEIVvP0jUudIO2_WpOFF7knHA6Agmgbi6if3E/
         $0 \le z_{a}, z_{a} \in Integer, \forall a \in A$
 
         $0 \le \omega_{s}, \omega_{s} \in Integer, \forall s \in S$
+
+
+## Solution
+
+### solved by or-tool
+- Objective function - total cost = 905
+- Decision Variables
+  - $x_m$：單點主餐 m 的數量, $\forall m \in M$
+    | Item              | order numbers |
+    | ----------------- | ------------- |
+    | Beef hamburger    | 0             |
+    | Pork hamburger    | 0             |
+    | Chicken hamburger | 0             |
+    | Fried Chicken     | 0             |
+  - $y_n$：單點副餐 n 的數量, $\forall n \in N$
+    | Item            | order numbers |
+    | --------------- | ------------- |
+    | Fries           | 1             |
+    | Popcorn chicken | 0             |
+    | Smoothie        | 0             |
+    | Salad           | 2             |
+  - $z_a$：單點飲料 a 的數量, $\forall a \in A$
+    | Item      | order numbers |
+    | --------- | ------------- |
+    | Coke      | 0             |
+    | Sprite    | 0             |
+    | Black tea | 0             |
+    | Green tea | 0             |
+  - $\omega_s$：購買套餐 s 的數量, $\forall s \in S$
+    | Item              | order numbers |
+    | ----------------- | ------------- |
+    | Beef hamburger    | 1             |
+    | Pork hamburger    | 2             |
+    | Chicken hamburger | 1             |
+    | Fried Chicken     | 0             |
+    | Party             | 1             |
