@@ -2,6 +2,9 @@ from ortools.linear_solver import pywraplp
 
 
 def main():
+    """
+    entry point for solving the mathematical model
+    """
     # Create the mip solver with the SCIP backend.
     solver = pywraplp.Solver.CreateSolver('SCIP')
     infinity = solver.infinity()
@@ -79,16 +82,16 @@ def main():
 
     # Define the variables
     x_var = [
-        solver.IntVar(0, solver.infinity(), '') for m in range(len(main_dish))
+        solver.IntVar(0, infinity, '') for m in range(len(main_dish))
     ]
     y_var = [
-        solver.IntVar(0, solver.infinity(), '') for m in range(len(side_dish))
+        solver.IntVar(0, infinity, '') for m in range(len(side_dish))
     ]
     z_var = [
-        solver.IntVar(0, solver.infinity(), '') for m in range(len(drinks))
+        solver.IntVar(0, infinity, '') for m in range(len(drinks))
     ]
     w_var = [
-        solver.IntVar(0, solver.infinity(), '') for m in range(len(set_dish))
+        solver.IntVar(0, infinity, '') for m in range(len(set_dish))
     ]
 
     # Define the constraints
@@ -143,7 +146,10 @@ def main():
     solver.Minimize(total_cost)
     status = solver.Solve()
 
-    def getSolution_value(x):
+    def get_solution_value(x):
+        """
+        get the solution value from the decision variable
+        """
         return x.solution_value()
 
     # Display the solution
@@ -154,17 +160,17 @@ def main():
         print('The problem does not have an optimal solution.')
 
     print('\nAdvanced usage:')
-    print('Problem solved in %f milliseconds' % solver.wall_time())
-    print('Problem solved in %d iterations' % solver.iterations())
-    print('Problem solved in %d branch-and-bound nodes' % solver.nodes())
+    print('Problem solved in {} milliseconds', solver.wall_time())
+    print('Problem solved in {} iterations', solver.iterations())
+    print('Problem solved in {} branch-and-bound nodes', solver.nodes())
     print('----x----')
-    print(list(map(getSolution_value, x_var)))
+    print(list(map(get_solution_value, x_var)))
     print('----y----')
-    print(list(map(getSolution_value, y_var)))
+    print(list(map(get_solution_value, y_var)))
     print('----z----')
-    print(list(map(getSolution_value, z_var)))
+    print(list(map(get_solution_value, z_var)))
     print('----w----')
-    print(list(map(getSolution_value, w_var)))
+    print(list(map(get_solution_value, w_var)))
 
 
 if __name__ == '__main__':
